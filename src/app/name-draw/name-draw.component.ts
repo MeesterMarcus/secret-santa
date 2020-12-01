@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import '../../assets/smtp';
+
+declare let Email: any;
 
 @Component({
   selector: 'app-name-draw',
@@ -38,7 +41,27 @@ export class NameDrawComponent implements OnInit {
       pair.p2 = this.persons[i - 1];
       this.pairs.push(pair);
     }
-    console.log(this.pairs);
+    this.sendEmails();
+  }
+
+  sendEmails() {
+    this.pairs.forEach(pair => {
+      this.sendMail(pair.p1.email, pair.p2.name);
+      this.sendMail(pair.p2.email, pair.p1.name);
+    });
+  }
+
+  // Todo: create an API for this to hide pw
+  sendMail(to, assignment) {
+    Email.send({
+      Host: 'smtp.elasticemail.com',
+      Username: 'info@lorenzanadesigns.com',
+      Password: '26AC4D40430CBCA6DCA773E974E40B357EFA',
+      To: to,
+      From: 'info@lorenzanadesigns.com',
+      Subject: 'Secret Santa',
+      Body: 'You were assigned: ' + assignment
+    });
   }
 
   /**
