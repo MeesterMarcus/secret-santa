@@ -29,7 +29,7 @@
 
   <div fxLayout="row" style="margin-top: 15px;">
     <div *ngIf="pairs">
-      <mat-card *ngFor="let pair of pairs">
+      <mat-card style="margin-top:5px;" *ngFor="let pair of pairs">
         <b>{{pair.p1}}</b> is assigned <b>{{pair.p2}}</b>
       </mat-card>
     </div>
