@@ -14,6 +14,8 @@ export class NameDrawComponent implements OnInit {
   persons: any[] = [];
   pairs: any[] = [];
   isUneven = true;
+  resultsHidden = true;
+  resultButtonText = 'Show Results';
 
   constructor() {
   }
@@ -41,9 +43,19 @@ export class NameDrawComponent implements OnInit {
       pair.p2 = this.persons[i - 1];
       this.pairs.push(pair);
     }
-    this.sendEmails();
   }
 
+  showResults() {
+    if (this.resultsHidden) {
+      this.resultsHidden = false;
+      this.resultButtonText = 'Hide results';
+    } else {
+      this.resultsHidden = true;
+      this.resultButtonText = 'Show Results';
+    }
+  }
+
+  // Todo: [EXPERIMENTAL] use an API instead
   sendEmails() {
     this.pairs.forEach(pair => {
       this.sendMail(pair.p1.email, pair.p2.name);
@@ -51,12 +63,11 @@ export class NameDrawComponent implements OnInit {
     });
   }
 
-  // Todo: create an API for this to hide pw
   sendMail(to, assignment) {
     Email.send({
       Host: 'smtp.elasticemail.com',
       Username: 'info@lorenzanadesigns.com',
-      Password: '26AC4D40430CBCA6DCA773E974E40B357EFA',
+      Password: '',
       To: to,
       From: 'info@lorenzanadesigns.com',
       Subject: 'Secret Santa',

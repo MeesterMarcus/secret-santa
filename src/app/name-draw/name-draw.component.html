@@ -33,8 +33,12 @@
     <button mat-raised-button color="accent" type="button" (click)="drawNames()" [disabled]="isUneven">Draw!</button>
   </div>
 
+  <div fxLayout="row" style="margin-top:25px;">
+    <button mat-raised-button color="primary" [disabled]="!pairs || pairs.length === 0" type="button" (click)="showResults()">{{resultButtonText}}</button>
+  </div>
+
   <div fxLayout="row" style="margin-top: 15px;">
-    <div *ngIf="pairs">
+    <div *ngIf="pairs && !resultsHidden">
       <mat-card style="margin-top:5px;" *ngFor="let pair of pairs">
         <b>{{pair.p1.name}}</b> is assigned <b>{{pair.p2.name}}</b>
       </mat-card>
