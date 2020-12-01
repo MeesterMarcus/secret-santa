@@ -1,27 +1,39 @@
-<div>
-  Participants:
-  <span *ngFor="let name of names">{{name}}, </span>
-</div>
+<div class="container">
 
-<br><br>
-
-<div>
-  <input type="text" id="fname" [(ngModel)]="entry" name="fname"><br><br>
-
-</div>
-
-<div>
-  <button type="button" (click)="addName()">Add Person</button>
-</div>
-
-<div>
-  <button type="button" (click)="drawNames()" [disabled]="isUneven">Draw</button>
-</div>
-
-<br><br>
-Pairs:
-<div *ngIf="pairs">
-  <div *ngFor="let pair of pairs">
-    {{pair.p1}} is assigned {{pair.p2}}
+  <div fxLayout="row">
+    <mat-list *ngIf="names.length > 0">
+      <div mat-subheader>Participants</div>
+      <mat-list-item *ngFor="let name of names">
+        <mat-icon mat-list-icon>face</mat-icon>
+        <div mat-line>{{name}} </div>
+      </mat-list-item>
+    </mat-list>
   </div>
+
+  <br><br>
+
+  <div fxLayout="row">
+    <mat-form-field>
+      <input matInput type="text" id="fname" [(ngModel)]="entry" name="fname">
+    </mat-form-field>
+    <div style="display:inline-block">
+      <button mat-raised-button type="button" (click)="addName()">Add Person</button>
+    </div>
+    <br>
+
+  </div>
+
+  <div fxLayout="row">
+    <button mat-raised-button color="primary" type="button" (click)="drawNames()" [disabled]="isUneven">Draw</button>
+  </div>
+
+  <div fxLayout="row" style="margin-top: 15px;">
+    <div *ngIf="pairs">
+      <mat-card *ngFor="let pair of pairs">
+        <b>{{pair.p1}}</b> is assigned <b>{{pair.p2}}</b>
+      </mat-card>
+    </div>
+  </div>
+
+
 </div>
