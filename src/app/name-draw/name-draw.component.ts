@@ -7,8 +7,8 @@ import {Component, OnInit} from '@angular/core';
 })
 export class NameDrawComponent implements OnInit {
 
-  entry: string;
-  names: string[] = [];
+  entry: any = {};
+  persons: any[] = [];
   pairs: any[] = [];
   isUneven = true;
 
@@ -22,20 +22,20 @@ export class NameDrawComponent implements OnInit {
    * Add a name
    */
   addName() {
-    this.names.push(this.entry);
-    console.log(this.names);
-    this.isUneven = this.names.length % 2 !== 0 || this.names.length === 0;
+    this.persons.push(this.entry);
+    this.isUneven = this.persons.length % 2 !== 0 || this.persons.length === 0;
+    this.entry = {};
   }
 
   /**
    * Draw the names
    */
   drawNames() {
-    this.names = this.shuffle(this.names);
-    for (let i = this.names.length - 1; i >= 0; i -= 2) {
+    this.persons = this.shuffle(this.persons);
+    for (let i = this.persons.length - 1; i >= 0; i -= 2) {
       const pair: any = {};
-      pair.p1 = this.names[i];
-      pair.p2 = this.names[i - 1];
+      pair.p1 = this.persons[i];
+      pair.p2 = this.persons[i - 1];
       this.pairs.push(pair);
     }
     console.log(this.pairs);

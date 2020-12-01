@@ -2,11 +2,13 @@
   <h2>Enter the participants below and click the draw button to draw names!</h2>
 
   <div fxLayout="row">
-    <mat-list *ngIf="names.length > 0">
+    <mat-list *ngIf="persons.length > 0">
       <div mat-subheader>Participants</div>
-      <mat-list-item *ngFor="let name of names">
+      <mat-list-item *ngFor="let person of persons">
         <mat-icon mat-list-icon>face</mat-icon>
-        <div mat-line>{{name}} </div>
+        <div mat-line>{{person.name}}</div>
+        <div mat-line>{{person.email}}</div>
+
       </mat-list-item>
     </mat-list>
   </div>
@@ -14,8 +16,11 @@
   <br><br>
 
   <div fxLayout="row">
+    <mat-form-field style="margin-right:15px;">
+      <input matInput placeholder="Name" type="text" id="fname" [(ngModel)]="entry.name" name="fname">
+    </mat-form-field>
     <mat-form-field>
-      <input matInput type="text" id="fname" [(ngModel)]="entry" name="fname">
+      <input matInput type="text" placeholder="Email" id="email" [(ngModel)]="entry.email" name="fname">
     </mat-form-field>
     <div style="margin-left: 10px;">
       <button mat-raised-button color="primary" type="button" (click)="addName()">Add Person</button>
@@ -25,13 +30,13 @@
   </div>
 
   <div fxLayout="row">
-    <button mat-raised-button color="accent" type="button" (click)="drawNames()" [disabled]="isUneven">Draw</button>
+    <button mat-raised-button color="accent" type="button" (click)="drawNames()" [disabled]="isUneven">Draw!</button>
   </div>
 
   <div fxLayout="row" style="margin-top: 15px;">
     <div *ngIf="pairs">
       <mat-card style="margin-top:5px;" *ngFor="let pair of pairs">
-        <b>{{pair.p1}}</b> is assigned <b>{{pair.p2}}</b>
+        <b>{{pair.p1.name}}</b> is assigned <b>{{pair.p2.name}}</b>
       </mat-card>
     </div>
   </div>
