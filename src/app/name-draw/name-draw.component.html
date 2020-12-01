@@ -1,0 +1,27 @@
+<div>
+  Participants:
+  <span *ngFor="let name of names">{{name}}, </span>
+</div>
+
+<br><br>
+
+<div>
+  <input type="text" id="fname" [(ngModel)]="entry" name="fname"><br><br>
+
+</div>
+
+<div>
+  <button type="button" (click)="addName()">Add Person</button>
+</div>
+
+<div>
+  <button type="button" (click)="drawNames()" [disabled]="isUneven">Draw</button>
+</div>
+
+<br><br>
+Pairs:
+<div *ngIf="pairs">
+  <div *ngFor="let pair of pairs">
+    {{pair.p1}} is assigned {{pair.p2}}
+  </div>
+</div>
