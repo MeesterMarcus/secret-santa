@@ -1,4 +1,5 @@
 <div class="container">
+  <h2>Enter the participants below and click the draw button to draw names!</h2>
 
   <div fxLayout="row">
     <mat-list *ngIf="names.length > 0">
@@ -16,15 +17,15 @@
     <mat-form-field>
       <input matInput type="text" id="fname" [(ngModel)]="entry" name="fname">
     </mat-form-field>
-    <div style="display:inline-block">
-      <button mat-raised-button type="button" (click)="addName()">Add Person</button>
+    <div style="margin-left: 10px;">
+      <button mat-raised-button color="primary" type="button" (click)="addName()">Add Person</button>
     </div>
     <br>
 
   </div>
 
   <div fxLayout="row">
-    <button mat-raised-button color="primary" type="button" (click)="drawNames()" [disabled]="isUneven">Draw</button>
+    <button mat-raised-button color="accent" type="button" (click)="drawNames()" [disabled]="isUneven">Draw</button>
   </div>
 
   <div fxLayout="row" style="margin-top: 15px;">
