@@ -1,49 +1,61 @@
 <div class="container">
-  <h2>Enter the participants below and click the draw button to draw names!</h2>
-
   <div fxLayout="row">
-    <mat-list *ngIf="persons.length > 0">
-      <div mat-subheader>Participants</div>
-      <mat-list-item *ngFor="let person of persons">
-        <mat-icon mat-list-icon>face</mat-icon>
-        <div mat-line>{{person.name}}</div>
-        <div mat-line>{{person.email}}</div>
+    <mat-card fxFlex="50">
+      <h2 fxLayoutAlign="center">Enter the participants below and click the draw button to draw names!</h2>
+      <div fxLayout="row" fxLayoutAlign="center">
+        <mat-form-field style="margin-right:15px; width: 30%">
+          <input matInput placeholder="Name" type="text" id="fname" [(ngModel)]="entry.name" name="fname">
+        </mat-form-field>
+        <!--<mat-form-field>-->
+        <!--  <input matInput type="text" placeholder="Email" id="email" [(ngModel)]="entry.email" name="fname">-->
+        <!--</mat-form-field>-->
+        <div style="margin-left: 10px;">
+          <button mat-raised-button color="primary" type="button" (click)="addName()">Add Person</button>
+        </div>
+        <br>
 
-      </mat-list-item>
-    </mat-list>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="center">
+        <button style="width: 30%" mat-raised-button color="accent" type="button" (click)="drawNames()"
+                [disabled]="isUneven">Draw!
+        </button>
+      </div>
+
+    </mat-card>
+
+    <mat-card fxFlex="50">
+      <h2 fxLayoutAlign="center">Participants</h2>
+      <div fxLayout="row" fxLayoutAlign="center">
+        <div *ngIf="persons.length > 0">
+          <mat-card style="width: 100%; text-align: center; margin-top: 8px;" *ngFor="let person of persons">
+            <h3>{{person.name}}</h3>
+            <!--<div mat-line>{{person.email}}</div>-->
+          </mat-card>
+        </div>
+      </div>
+    </mat-card>
+
   </div>
 
-  <br><br>
+  <div>
+    <div fxLayoutAlign="center" style="margin-top:25px; width: 100%">
+      <div>
+        <button mat-raised-button color="primary" [disabled]="!pairs || pairs.length === 0" type="button"
+                (click)="showResults()">{{resultButtonText}}</button>
+      </div>
 
-  <div fxLayout="row">
-    <mat-form-field style="margin-right:15px;">
-      <input matInput placeholder="Name" type="text" id="fname" [(ngModel)]="entry.name" name="fname">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput type="text" placeholder="Email" id="email" [(ngModel)]="entry.email" name="fname">
-    </mat-form-field>
-    <div style="margin-left: 10px;">
-      <button mat-raised-button color="primary" type="button" (click)="addName()">Add Person</button>
     </div>
-    <br>
-
   </div>
 
-  <div fxLayout="row">
-    <button mat-raised-button color="accent" type="button" (click)="drawNames()" [disabled]="isUneven">Draw!</button>
-  </div>
-
-  <div fxLayout="row" style="margin-top:25px;">
-    <button mat-raised-button color="primary" [disabled]="!pairs || pairs.length === 0" type="button" (click)="showResults()">{{resultButtonText}}</button>
-  </div>
-
-  <div fxLayout="row" style="margin-top: 15px;">
+  <div style="margin-top: 50px;" fxLayoutAlign="center">
     <div *ngIf="pairs && !resultsHidden">
       <mat-card style="margin-top:5px;" *ngFor="let pair of pairs">
-        <b>{{pair.p1.name}}</b> is assigned <b>{{pair.p2.name}}</b>
+        <h2><b>{{pair.p1.name}}</b> is assigned <b>{{pair.p2.name}}</b></h2>
       </mat-card>
     </div>
   </div>
+
 
 
 </div>
