@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import '../../assets/smtp';
+import {MatDialog} from '@angular/material/dialog';
+import {AlreadyExistsDialogComponent} from '../already-exists-dialog/already-exists-dialog.component';
 
 declare let Email: any;
 
@@ -16,8 +18,10 @@ export class NameDrawComponent implements OnInit {
   isUneven = true;
   resultsHidden = true;
   resultButtonText = 'Show Results';
+  drawnPersons: any[] = [];
+  drawClicked = false;
 
-  constructor() {
+  constructor(public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -27,20 +31,45 @@ export class NameDrawComponent implements OnInit {
    * Add a name
    */
   addName() {
+    if (this.persons.some(p => p.name === this.entry.name)) {
+      const dialogRef = this.dialog.open(AlreadyExistsDialogComponent);
+      this.entry = {};
+      return;
+    }
     this.persons.push(this.entry);
     this.isUneven = this.persons.length % 2 !== 0 || this.persons.length === 0;
     this.entry = {};
+  }
+
+  remove(person) {
+    if (this.drawClicked) {
+      return;
+    }
+    this.persons = this.persons.filter(p => p.name !== person.name);
+    this.isUneven = this.persons.length % 2 !== 0 || this.persons.length === 0;
+    console.log(this.persons);
+  }
+
+  reset() {
+    this.drawClicked = false;
+    this.isUneven = true;
+    this.resultsHidden = true;
+    this.resultButtonText = 'Show Results';
+    this.persons = [];
+    this.pairs = [];
+    this.drawnPersons = [];
   }
 
   /**
    * Draw the names
    */
   drawNames() {
-    this.persons = this.shuffle(this.persons);
-    for (let i = this.persons.length - 1; i >= 0; i -= 2) {
+    this.drawClicked = true;
+    this.drawnPersons = this.shuffle(this.persons);
+    for (let i = this.drawnPersons.length - 1; i >= 0; i -= 2) {
       const pair: any = {};
-      pair.p1 = this.persons[i];
-      pair.p2 = this.persons[i - 1];
+      pair.p1 = this.drawnPersons[i];
+      pair.p2 = this.drawnPersons[i - 1];
       this.pairs.push(pair);
     }
   }

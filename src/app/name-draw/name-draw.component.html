@@ -10,7 +10,7 @@
         <!--  <input matInput type="text" placeholder="Email" id="email" [(ngModel)]="entry.email" name="fname">-->
         <!--</mat-form-field>-->
         <div style="margin-left: 10px;">
-          <button mat-raised-button color="primary" type="button" (click)="addName()">Add Person</button>
+          <button mat-raised-button [disabled]="drawClicked" color="primary" type="button" (click)="addName()">Add Person</button>
         </div>
         <br>
 
@@ -18,7 +18,7 @@
 
       <div fxLayout="row" fxLayoutAlign="center">
         <button style="width: 30%" mat-raised-button color="accent" type="button" (click)="drawNames()"
-                [disabled]="isUneven">Draw!
+                [disabled]="isUneven || drawClicked">Draw!
         </button>
       </div>
 
@@ -29,7 +29,8 @@
       <div fxLayout="row" fxLayoutAlign="center">
         <div *ngIf="persons.length > 0">
           <mat-card style="width: 100%; text-align: center; margin-top: 8px;" *ngFor="let person of persons">
-            <h3>{{person.name}}</h3>
+            <span style="margin-right: 15px; font-size: 18px;">{{person.name}}</span>
+            <span [ngClass]="{'enabled-delete': !drawClicked, 'disabled-delete': drawClicked}" fxFlexAlign="center" (click)="remove(person)" class="material-icons">delete</span>
             <!--<div mat-line>{{person.email}}</div>-->
           </mat-card>
         </div>
@@ -43,6 +44,10 @@
       <div>
         <button mat-raised-button color="primary" [disabled]="!pairs || pairs.length === 0" type="button"
                 (click)="showResults()">{{resultButtonText}}</button>
+      </div>
+      <div>
+        <button style="margin-left: 5px;" mat-raised-button color="accent" [disabled]="!pairs || pairs.length === 0" type="button"
+                (click)="reset()">Reset</button>
       </div>
 
     </div>

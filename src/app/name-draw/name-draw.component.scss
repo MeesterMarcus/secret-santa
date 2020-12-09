@@ -3,3 +3,13 @@
   //display: flex;
   //justify-content: center;
 }
+
+.enabled-delete {
+  color: red;
+  cursor: pointer;
+}
+
+.disabled-delete {
+  color: grey;
+  cursor: not-allowed;
+}
