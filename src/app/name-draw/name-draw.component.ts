@@ -12,6 +12,7 @@ declare let Email: any;
 })
 export class NameDrawComponent implements OnInit {
 
+  // Global variables
   entry: any = {};
   persons: any[] = [];
   pairs: any[] = [];
@@ -32,7 +33,7 @@ export class NameDrawComponent implements OnInit {
    */
   addName() {
     if (this.persons.some(p => p.name === this.entry.name)) {
-      const dialogRef = this.dialog.open(AlreadyExistsDialogComponent);
+      this.dialog.open(AlreadyExistsDialogComponent);
       this.entry = {};
       return;
     }
@@ -41,15 +42,20 @@ export class NameDrawComponent implements OnInit {
     this.entry = {};
   }
 
+  /**
+   * Remove a name
+   */
   remove(person) {
     if (this.drawClicked) {
       return;
     }
     this.persons = this.persons.filter(p => p.name !== person.name);
     this.isUneven = this.persons.length % 2 !== 0 || this.persons.length === 0;
-    console.log(this.persons);
   }
 
+  /**
+   * Reset the name drawing
+   */
   reset() {
     this.drawClicked = false;
     this.isUneven = true;
@@ -74,6 +80,9 @@ export class NameDrawComponent implements OnInit {
     }
   }
 
+  /**
+   * Show the drawn name results
+   */
   showResults() {
     if (this.resultsHidden) {
       this.resultsHidden = false;
@@ -92,6 +101,11 @@ export class NameDrawComponent implements OnInit {
     });
   }
 
+  /**
+   * Send an email
+   * @param to: the person sending email to
+   * @param:  the assigned person
+   */
   sendMail(to, assignment) {
     Email.send({
       Host: 'smtp.elasticemail.com',
