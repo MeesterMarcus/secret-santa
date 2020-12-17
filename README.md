@@ -4,6 +4,9 @@ This simple web application is used in order to draw names for Secret Santa. It 
 "put in the hat". It must be an even number in order to create pairs. You can see the added participants to the right and remove if needed. Once finished, click "Draw". At this point the mechanics are locked
 to prevent side effects. You can then "Show Results" to view the pairings. As well, you can click "Reset" to reset the flow and start again.
 
+## Demo
+View a live demo of the application [here](https://meestermarcus.github.io/secret-santa/). 
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
